@@ -10,7 +10,7 @@ public class User implements Serializable {
 	private String account;
 	private String name;
 	private String email;
-	private String passward;
+	private String password;
 	private String description;
 	private byte[] icon;
 	private Date insertDate;
@@ -41,11 +41,11 @@ public class User implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getPassward() {
-		return passward;
+	public String getPassword() {
+		return password;
 	}
-	public void setPassward(String passward) {
-		this.passward = passward;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	public String getDescription() {
 		return description;

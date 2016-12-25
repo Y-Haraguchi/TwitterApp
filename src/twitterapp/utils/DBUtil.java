@@ -7,12 +7,12 @@ import java.sql.SQLException;
 import twitterapp.exception.SQLRuntimeException;
 
 //DBコネクション関係のユーティリティ
-public class DBUtil  {
+public class DBUtil {
 
 	private static final String DRIVER = "com.mysql.jdbc.Driver";
-	private static final String URL = "jdbc:mysql://localhost/";
+	private static final String URL = "jdbc:mysql://localhost/twitterdb";
 	private static final String USER = "root";
-	private static final String PASSWARD = "root";
+	private static final String PASSWORD = "root";
 
 	static {
 
@@ -29,7 +29,7 @@ public class DBUtil  {
 	public static Connection getConnection() {
 
 		try {
-			Connection connection = DriverManager.getConnection(URL, USER, PASSWARD);
+			Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
 			connection.setAutoCommit(false);
 
 			return connection;

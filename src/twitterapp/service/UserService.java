@@ -20,8 +20,8 @@ public class UserService {
 		try {
 			connection = getConnection();
 
-			String encPassward = CipherUtil.encrypt(user.getPassward());
-			user.setPassward(encPassward);
+			String encPassword = CipherUtil.encrypt(user.getPassword());
+			user.setPassword(encPassword);
 
 			setDefaultIcon(user);
 

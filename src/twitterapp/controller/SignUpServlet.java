@@ -51,7 +51,7 @@ public class SignUpServlet extends HttpServlet {
 			User user = new User();
 			user.setName(request.getParameter("name"));
 			user.setAccount(request.getParameter("account"));
-			user.setPassward(request.getParameter("passward"));
+			user.setPassword(request.getParameter("password"));
 			user.setEmail(request.getParameter("email"));
 			user.setDescription(request.getParameter("description"));
 
@@ -64,12 +64,12 @@ public class SignUpServlet extends HttpServlet {
 	//isValidクラス
 	private boolean isValid(HttpServletRequest request, List<String> message) {
 		String account = request.getParameter("account");
-		String passward = request.getParameter("passward");
+		String password = request.getParameter("password");
 
 		if(StringUtils.isEmpty(account) == true) {
 			message.add("アカウントを入力してください");
 		}
-		if(StringUtils.isEmpty(passward) == true) {
+		if(StringUtils.isEmpty(password) == true) {
 			message.add("パスワードを入力してください");
 		}
 

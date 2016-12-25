@@ -28,8 +28,8 @@
 		<label for="account">アカウント名</label>
 		<input name="account" id="account" />（あなたの公開プロフィール：http://localhost:8080/?account=アカウント名）<br />
 
-		<label for="passward">パスワード</label>
-		<input name="passward" type="passward" id="passward" /><br />
+		<label for="password">パスワード</label>
+		<input name="password" type="password" id="password" /><br />
 
 		<label for="email">メールアドレス</label>
 		<input name="email" id="email" /><br />

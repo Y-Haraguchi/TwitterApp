@@ -43,7 +43,7 @@ public class UserDao {
 			ps.setString(1, user.getAccount());
 			ps.setString(2, user.getName());
 			ps.setString(3, user.getEmail());
-			ps.setString(4, user.getPassward());
+			ps.setString(4, user.getPassword());
 			ps.setString(5, user.getDescription());
 
 			if(user.getIcon() != null) {
