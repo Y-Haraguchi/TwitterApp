@@ -21,11 +21,11 @@ public class UserMessageDao {
 		PreparedStatement ps = null;
 		try {
 			StringBuilder sql = new StringBuilder();
-			sql.append("SELECT * FROM twitterdb.message ");
+			sql.append("SELECT * FROM twitterdb.user_message ");
 			if (userId != null) {
 				sql.append("WHERE user_id = ?");
 			}
-			sql.append("ORDER BY insert_date DESC limit " + num);
+			sql.append(" ORDER BY insert_date DESC limit " + num);
 
 			ps = connection.prepareStatement(sql.toString());
 

@@ -6,9 +6,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<%--トップ画面のjsp --%>
-<title>簡易TwitterAPP</title>
+	<link href="./css/style.css" rel="stylesheet" type="text/css">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>簡易TwitterAPP</title>
 </head>
 
 <body>
@@ -45,6 +45,21 @@
 					<input type="submit" value="つぶやく">(140文字まで)
 				</form>
 			</c:if>
+		</div>
+
+		<div class="messages">
+			<c:forEach items="${messages}" var="message">
+				<div class="message-icon">
+					<div class="message">
+						<div class="account-name">
+							<a href="./?user_id=${message.userId}"><span class="account"><c:out value="${message.account}" /></span></a>
+							<span class="name"><c:out value="${message.name}" /></span>
+						</div>
+						<div class="text"><c:out value="${message.text}" /></div>
+						<div class="date"><fmt:formatDate value="${message.insertDate}" pattern="yyyy/MM/dd HH:mm:ss" /></div>
+					</div>
+				</div>
+			</c:forEach>
 		</div>
 		<div class="copyright">Copyright(c)Yugi Haraguchi</div>
 	</div>
