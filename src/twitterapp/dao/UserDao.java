@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import twitterapp.beans.User;
+import twitterapp.exception.NoRowsUpdatedRuntimeException;
 import twitterapp.exception.SQLRuntimeException;
 
 public class UserDao {
@@ -85,15 +86,8 @@ public class UserDao {
 			return ret;
 		} finally {
 			close(rs);
-
 		}
-
-
-
-
 	}
-
-
 	//INSERTメソッド
 	public void insert(Connection connection, User user) {
 
@@ -135,8 +129,69 @@ public class UserDao {
 			close(ps);
 		}
 
+	}
+	//settings
+	public void update(Connection connection, User user) {
 
+		PreparedStatement ps = null;
+		try {
+			StringBuilder sql = new StringBuilder();
+			sql.append("UPDATE twitterdb.user SET");
+			sql.append("  account = ?");
+			sql.append(", name = ?");
+			sql.append(", email = ?");
+			sql.append(", password = ?");
+			sql.append(", description = ?");
+			sql.append(", update_date = CURRENT_TIMESTAMP");
+			sql.append(" WHERE");
+			sql.append(" id = ?");
+			sql.append(" AND");
+			sql.append(" update_date = ?");
 
+			ps = connection.prepareStatement(sql.toString());
+
+			ps.setString(1, user.getAccount());
+			ps.setString(2, user.getName());
+			ps.setString(3, user.getEmail());
+			ps.setString(4, user.getPassword());
+			ps.setString(5, user.getDescription());
+
+			int count = ps.executeUpdate();
+			if (count == 0) {
+				throw new NoRowsUpdatedRuntimeException();
+			}
+		} catch (SQLException e) {
+			throw new SQLRuntimeException(e);
+		} finally {
+			close(ps);
+		}
+
+	}
+
+	//settingsで使用するメソッド
+	public User getUser(Connection connection, int id) {
+
+		PreparedStatement ps = null;
+		try {
+			String sql = "SELECT * FROM twitterdb.user WHERE id = ?";
+
+			ps = connection.prepareStatement(sql);
+			ps.setInt(1, id);
+
+			ResultSet rs = ps.executeQuery();
+			List<User> userList = toUserList(rs);
+			if (userList.isEmpty() == true) {
+				return null;
+			} else if (2 <= userList.size()) {
+				throw new IllegalStateException("2 <= userList.size()");
+			} else {
+				return userList.get(0);
+			}
+		} catch (SQLException e) {
+			throw new SQLRuntimeException(e);
+		} finally {
+			close(ps);
+		}
 	}
 
 }
