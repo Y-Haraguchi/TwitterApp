@@ -14,10 +14,38 @@
 <body>
 	<div class="main-contents">
 		<div class="header">
-			<a href="login">ログイン</a>
-			<a href="signup">登録する</a>
+			<c:if test="${ empty loginUser }">
+				<a href="login">ログイン</a>
+				<a href="signup">登録する</a>
+			</c:if>
+			<c:if test="${ not empty loginUser }">
+				<a href="./">ホーム</a>
+				<a href="settings">設定</a>
+				<a href="logout">ログアウト</a>
+			</c:if>
 		</div>
+		<c:if test="${ not empty loginUser }">
+			<div class="profile">
+				<div class="name"><h2><c:out value="${loginUser.name}"/></h2></div>
+				<div class="account">
+					@<c:out value="${loginUser.account}"/>
+				</div>
+				<div class="description">
+					<c:out value="${loginUser.description}"/>
+				</div>
+			</div>
+		</c:if>
 
+		<div class="form-area">
+			<c:if test="${ isShowMessageForm }">
+				<form action="newMessage" method="post">
+					いまどうしてる？<br />
+					<textarea name="message" cols="100" rows="5" class="tweet-box"></textarea>
+					<br />
+					<input type="submit" value="つぶやく">(140文字まで)
+				</form>
+			</c:if>
+		</div>
 		<div class="copyright">Copyright(c)Yugi Haraguchi</div>
 	</div>
 </body>

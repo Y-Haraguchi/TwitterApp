@@ -9,32 +9,32 @@ import twitterapp.beans.User;
 import twitterapp.dao.UserDao;
 import twitterapp.utils.CipherUtil;
 
-public class UserService {
+public class LoginService {
 
-	public void register(User user) {
+	public User login(String accountOrEmail, String password) {
 
 		Connection connection = null;
 		try {
 			connection = getConnection();
 
-			String encPassword = CipherUtil.encrypt(user.getPassword());
-			user.setPassword(encPassword);
-
+			//パスワードの暗号化
 			UserDao userDao = new UserDao();
-			userDao.insert(connection, user);
+			String encPassword = CipherUtil.encrypt(password);
+			User user = userDao.getUser(connection, accountOrEmail, encPassword);
 
 			commit(connection);
+			return user;
 		} catch(RuntimeException e) {
-			e.printStackTrace();
 			rollback(connection);
 			throw e;
 		} catch(Error e) {
-			e.printStackTrace();
 			rollback(connection);
 			throw e;
 		} finally {
 			close(connection);
 		}
 
+
 	}
+
 }

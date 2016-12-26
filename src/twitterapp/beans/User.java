@@ -12,7 +12,6 @@ public class User implements Serializable {
 	private String email;
 	private String password;
 	private String description;
-	private byte[] icon;
 	private Date insertDate;
 	private Date updateDate;
 
@@ -52,12 +51,6 @@ public class User implements Serializable {
 	}
 	public void setDescription(String description) {
 		this.description = description;
-	}
-	public byte[] getIcon() {
-		return icon;
-	}
-	public void setIcon(byte[] icon) {
-		this.icon = icon;
 	}
 	public Date getInsertDate() {
 		return insertDate;
