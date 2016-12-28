@@ -45,6 +45,7 @@ public class SettingsServlet extends HttpServlet {
 
 		User editUser = getEditUser(request);
 		session.setAttribute("editUser", editUser);
+//		System.out.println(editUser);
 
 		if (isValid(request, messages) == true) {
 
@@ -67,8 +68,7 @@ public class SettingsServlet extends HttpServlet {
 		}
 	}
 
-	private User getEditUser(HttpServletRequest request)
-			throws IOException, ServletException {
+	private User getEditUser(HttpServletRequest request) throws IOException, ServletException {
 
 		HttpSession session = request.getSession();
 		User editUser = (User) session.getAttribute("editUser");

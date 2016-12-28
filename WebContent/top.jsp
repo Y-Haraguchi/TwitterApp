@@ -24,20 +24,30 @@
 				<a href="logout">ログアウト</a>
 			</c:if>
 		</div>
-		<c:if test="${ not empty loginUser }">
+		<c:if test="${ not empty errorMessages }">
+			<div class="errorMessages">
+				<ul>
+					<c:forEach items="${errorMessages}" var="message">
+					<li><c:out value="${message}" />
+					</c:forEach>
+				</ul>
+			</div>
+			<c:remove var="errorMessages" scope="session"/>
+		</c:if>
+		<c:if test="${ not empty user }">
 			<div class="profile">
-				<div class="name"><h2><c:out value="${loginUser.name}"/></h2></div>
+				<div class="name"><h2><c:out value="${user.name}"/></h2></div>
 				<div class="account">
-					@<c:out value="${loginUser.account}"/>
+					<a href="./?user_id=${user.id}">@<c:out value="${user.account}"/></a>
 				</div>
-				<div class="description">
-					<c:out value="${loginUser.description}"/>
+				<div class="account">
+					<c:out value="${user.description}"/>
 				</div>
 			</div>
 		</c:if>
 
 		<div class="form-area">
-			<c:if test="${ isShowMessageForm }">
+			<c:if test="${ not empty loginUser }">
 				<form action="newMessage" method="post">
 					いまどうしてる？<br />
 					<textarea name="message" cols="100" rows="5" class="tweet-box"></textarea>
@@ -49,15 +59,12 @@
 
 		<div class="messages">
 			<c:forEach items="${messages}" var="message">
-				<div class="message-icon">
-					<div class="message">
-						<div class="account-name">
-							<a href="./?user_id=${message.userId}"><span class="account"><c:out value="${message.account}" /></span></a>
-							<span class="name"><c:out value="${message.name}" /></span>
-						</div>
-						<div class="text"><c:out value="${message.text}" /></div>
-						<div class="date"><fmt:formatDate value="${message.insertDate}" pattern="yyyy/MM/dd HH:mm:ss" /></div>
-					</div>
+				<div class="message">
+					<div class="account-name">
+						<a href="./?user_id=${message.userId}"><span class="account"><c:out value="${message.account}" /></span></a>
+						<span class="name"><c:out value="${message.name}" /></span>
+					</div>						<div class="text"><c:out value="${message.text}" /></div>
+					<div class="date"><fmt:formatDate value="${message.insertDate}" pattern="yyyy/MM/dd HH:mm:ss" /></div>
 				</div>
 			</c:forEach>
 		</div>

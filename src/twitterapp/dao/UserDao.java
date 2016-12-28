@@ -155,6 +155,8 @@ public class UserDao {
 			ps.setString(3, user.getEmail());
 			ps.setString(4, user.getPassword());
 			ps.setString(5, user.getDescription());
+			ps.setInt(6, user.getId());
+			ps.setTimestamp(7, new Timestamp(user.getUpdateDate().getTime()));
 
 			int count = ps.executeUpdate();
 			if (count == 0) {

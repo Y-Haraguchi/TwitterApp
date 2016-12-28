@@ -23,7 +23,7 @@
 	<c:remove var="errorMessages" scope="session"/>
 </c:if>
 
-<form action="settings" method="post" enctype="multipart/form-data"><br />
+<form action="settings" method="post"><br />
 	<label for="name">名前</label>
 	<input name="name" value="${editUser.name}" id="name"/>（名前はあなたの公開プロフィールに表示されます）<br />
 
@@ -42,7 +42,7 @@
 	<input type="submit" value="登録" /> <br />
 	<a href="./">戻る</a>
 </form>
-<div class="copyright">Copyright(c)Satoshi Kimura</div>
+<div class="copyright">Copyright(c)Yugi Haraguchi</div>
 </div>
 </body>
 </html>

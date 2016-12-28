@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import twitterapp.beans.User;
 import twitterapp.beans.UserMessage;
 import twitterapp.service.MessageService;
+import twitterapp.service.UserService;
 
 @WebServlet(urlPatterns = { "/index.jsp" })
 public class TopServlet extends HttpServlet {
@@ -21,17 +22,27 @@ public class TopServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
-		//Userオブジェクトにセッションで取得したログインユーザー情報を取得
-		User user = (User)request.getSession().getAttribute("loginUser");
+		String userId = request.getParameter("user_id");
+
+		User user;
+		List<UserMessage> messages;
 		boolean isShowMessageForm;
-		if(user != null) {
-			isShowMessageForm = true;
-		} else {
+		//ユーザーIDがない場合は、メッセージはすべて表示される
+		if(userId == null) {
+			user = (User)request.getSession().getAttribute("loginUser");
+			messages = new MessageService().getMessage(null);
+			if(user != null) {
+				isShowMessageForm = true;
+			} else {
+				isShowMessageForm = false;
+			}
+		} else {//特定されたユーザーのメッセージだけをGET
+			int uId = Integer.parseInt(userId);
+			user = new UserService().getUser(uId);
+			messages = new MessageService().getMessage(uId);
 			isShowMessageForm = false;
 		}
-
-		List<UserMessage> messages = new MessageService().getMessage(user.getId());
-
+		request.setAttribute("user", user);
 		request.setAttribute("messages", messages);
 		request.setAttribute("isShowMessageForm", isShowMessageForm);
 
